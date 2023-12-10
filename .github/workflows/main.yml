@@ -23,7 +23,11 @@ jobs:
       # *****************************************************
       # * Build
       # *****************************************************
-      - run: flutter pub get
+      - name: Run flutter version
+        run: flutter --version
+
+      - name: Run flutter pub get
+        run: flutter pub get
       - run: flutter build web --release --no-tree-shake-icons
       - run: cd build/web
       - run: sed -e 's@<base href=\"/\">@<base href=\"/one/\">@' index.html > tmp
