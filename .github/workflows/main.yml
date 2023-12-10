@@ -32,11 +32,13 @@ jobs:
       - name: Run flutter pub get
         run: flutter pub get
       - run: flutter build web --release --no-tree-shake-icons
-      - run: cd build/web
-      - run: sed -e 's@<base href=\"/\">@<base href=\"/one/\">@' index.html > tmp
-      - run: mv tmp index.html
-      - run: zip -r one.zip .
+      - name: sed
+        working-directory: build/web
+        run: 
+          sed -e 's@<base href=\"/\">@<base href=\"/one/\">@' index.html > tmp
+          mv tmp index.html
+          zip -r one.zip .
       - uses: actions/upload-artifact@v3
         with:
           name: one
-          path: one.zip
+          path: build/web/one.zip
